@@ -9,7 +9,7 @@ Welcome to Pokédex app - Where you can search any Pokémon and view stats.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/CW-Codewalnut/codewalnut-front-end-tech-test.git
+git clone https://github.com/PAVANNAIK25/pokedex.git
 ```
 
 ### 2. Install Dependencies
