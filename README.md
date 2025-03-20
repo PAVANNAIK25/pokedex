@@ -1,4 +1,4 @@
-# Front-End Technical Test
+# Pokédex Application
 
 Welcome to Pokédex app - Where you can search any Pokémon and view stats.
 
