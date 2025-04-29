@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import PokemonCard from "./Pokemon-card";
 import { Skeleton } from "@/components/ui/skeleton";
+import PokemonCard from "./Pokemon-card";
 import { Button } from "./ui/button";
 
 export default function PokemonGrid() {
@@ -72,9 +72,9 @@ export default function PokemonGrid() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
         {Array(limit)
           .fill(0)
-          .map((_, index) => (
+          .map((_, i) => (
             <div
-              key={index}
+              key={i}
               className="bg-white rounded-lg shadow-lg overflow-hidden"
             >
               <Skeleton className="h-48 w-full" />
@@ -105,30 +105,32 @@ export default function PokemonGrid() {
   }
 
   return (
-    <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
-        {pokemon.map((p) => (
-          <PokemonCard key={p.id} pokemon={p} />
-        ))}
-      </div>
-
-      {!searchQuery && (
-        <div className="flex justify-center mt-8 gap-4">
-          <Button
-            onClick={loadPrevious}
-            disabled={offset === 0}
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-md disabled:opacity-50"
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={loadMore}
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-md"
-          >
-            Load More
-          </Button>
+    <Suspense>
+      <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+          {pokemon.map((p) => (
+            <PokemonCard key={p.id} pokemon={p} />
+          ))}
         </div>
-      )}
-    </div>
+
+        {!searchQuery && (
+          <div className="flex justify-center mt-8 gap-4">
+            <Button
+              onClick={loadPrevious}
+              disabled={offset === 0}
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-md disabled:opacity-50"
+            >
+              Previous
+            </Button>
+            <Button
+              onClick={loadMore}
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-md"
+            >
+              Load More
+            </Button>
+          </div>
+        )}
+      </div>
+    </Suspense>
   );
 }
